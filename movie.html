@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>චිත්‍රපට - CinemaLK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="whatsapp-float">
+        <a href="https://wa.me/94741039941" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">CinemaLK</h1>
+            <nav class="main-nav">
+                <a href="index.html">මුල් පිටුව</a>
+                <a href="movies.html" class="active">චිත්‍රපට</a>
+                <a href="series.html">ටීවී කතාමාලා</a>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="චිත්‍රපට සොයන්න...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="movies-section">
+            <div class="container">
+                <h2>චිත්‍රපට</h2>
+                
+                <div class="movies-grid">
+                    <!-- Emergency Declaration -->
+                    <div class="movie-card">
+                        <div class="movie-poster" onclick="playMovie('1HHSF8ANGmfIlEsXkKQb6UudrNsm1s8bW')">
+                            <img src="../images/emergency-declaration.jpg" alt="Emergency Declaration">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>Emergency Declaration</h3>
+                            <div class="movie-meta">
+                                <span class="year">2021</span>
+                                <span class="rating"><i class="fas fa-star"></i> 6.5/10 (IMDb)</span>
+                            </div>
+                            <p class="genre">Action, Thriller</p>
+                        </div>
+                    </div>
+                    
+                    <!-- The Battle at Lake Changjin -->
+                    <div class="movie-card">
+                        <div class="movie-poster" onclick="playMovie('1-6-byCxCoVCgnOzOn2eb_dl93xG2BW23')">
+                            <img src="../images/battle-changjin.jpg" alt="The Battle at Lake Changjin">
+                            <div class="play-overlay">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>The Battle at Lake Changjin</h3>
+                            <div class="movie-meta">
+                                <span class="year">2021</span>
+                                <span class="rating"><i class="fas fa-star"></i> 5.2/10 (IMDb)</span>
+                            </div>
+                            <p class="genre">War, Action</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="player-modal" id="playerModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePlayer()">&times;</span>
+            <iframe id="movieFrame" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2023 CinemaLK. සියලුම හිමිකම් ඇවිරිණි.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+  </html>
