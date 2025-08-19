@@ -251,9 +251,14 @@
             margin-bottom: 15px;
         }
 
-        .watch-btn {
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .watch-btn, .download-btn {
             display: block;
-            width: 100%;
+            flex: 1;
             background-color: var(--primary-color);
             color: white;
             text-align: center;
@@ -262,10 +267,22 @@
             text-decoration: none;
             font-weight: bold;
             transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            background-color: #2c2c2c;
+            border: 1px solid #555;
         }
 
         .watch-btn:hover {
             background-color: #ff0a16;
+        }
+
+        .download-btn:hover {
+            background-color: #3c3c3c;
         }
 
         /* Coming Soon Section */
@@ -515,6 +532,10 @@
             .episodes-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -611,7 +632,10 @@
                                 <span class="rating"><i class="fas fa-star"></i> 8.5/10</span>
                             </div>
                             <p class="genre">Drama, Medical</p>
-                            <a href="#" class="watch-btn" onclick="openSeriesModal('doctor-strengers'); return false;">දැන් බලන්න</a>
+                            <div class="action-buttons">
+                                <button class="watch-btn" onclick="openSeriesModal('doctor-strengers')">දැන් බලන්න</button>
+                                <a href="https://drive.google.com/drive/folders/1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u" target="_blank" class="download-btn">Download/View</a>
+                            </div>
                         </div>
                     </div>
                     
@@ -632,7 +656,10 @@
                                 <span class="rating"><i class="fas fa-star"></i> 8.0/10</span>
                             </div>
                             <p class="genre">Thriller, Drama</p>
-                            <a href="#" class="watch-btn" onclick="openSeriesModal('the-8-show'); return false;">දැන් බලන්න</a>
+                            <div class="action-buttons">
+                                <button class="watch-btn" onclick="openSeriesModal('the-8-show')">දැන් බලන්න</button>
+                                <a href="https://drive.google.com/drive/folders/1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6" target="_blank" class="download-btn">Download/View</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -684,6 +711,10 @@
                 <p class="modal-description">
                     Doctor Strengers is a compelling medical drama that follows the life of Dr. Alex Strengers, a brilliant but unconventional surgeon who challenges the established medical practices at St. Jude's Hospital. With his innovative techniques and unorthodox methods, he saves countless lives while battling his own personal demons and hospital politics.
                 </p>
+                <div class="action-buttons" style="margin-bottom: 30px;">
+                    <button class="watch-btn" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '1')">කථාංග 1 බලන්න</button>
+                    <a href="https://drive.google.com/drive/folders/1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u" target="_blank" class="download-btn">සියලු කථාංග Download/View</a>
+                </div>
                 <h3>කථාංග</h3>
                 <div class="episodes-grid">
                     <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '1')">
@@ -745,6 +776,10 @@
                 <p class="modal-description">
                     The 8 Show is a psychological thriller that follows eight strangers who are invited to participate in a mysterious reality show with a huge cash prize. As the game progresses, the participants realize that the show has sinister intentions, and they must navigate complex alliances and moral dilemmas to survive.
                 </p>
+                <div class="action-buttons" style="margin-bottom: 30px;">
+                    <button class="watch-btn" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '1')">කථාංග 1 බලන්න</button>
+                    <a href="https://drive.google.com/drive/folders/1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6" target="_blank" class="download-btn">සියලු කථාංග Download/View</a>
+                </div>
                 <h3>කථාංග</h3>
                 <div class="episodes-grid">
                     <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '1')">
@@ -792,9 +827,10 @@
     <div class="series-modal" id="player-modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('player-modal')">&times;</span>
-            <div style="padding: 56.25% 0 0 0; position: relative;">
-                <iframe id="video-player" src="" frameborder="0" allowfullscreen 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            <div style="padding: 20px; text-align: center;">
+                <h2>Google Drive Content</h2>
+                <p style="margin-bottom: 20px;">මෙම අන්තර්ගතය බැලීමට ඔබව Google Drive වෙත හරවා යවනු ලැබේ. එහිදී ඔබට වීඩියෝව බලාගත හැකිය.</p>
+                <button class="watch-btn" onclick="openDriveContent()" style="margin: 0 auto;">Google Drive විවෘත කරන්න</button>
             </div>
         </div>
     </div>
@@ -806,6 +842,9 @@
     </footer>
 
     <script>
+        // Store the current drive folder ID
+        let currentDriveFolderId = '';
+        
         // Function to open series modal
         function openSeriesModal(seriesId) {
             document.getElementById(seriesId + '-modal').style.display = 'block';
@@ -816,27 +855,21 @@
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
-            
-            // Stop video playback when closing player
-            if (modalId === 'player-modal') {
-                const iframe = document.getElementById('video-player');
-                iframe.src = '';
-            }
         }
         
         // Function to play episode
         function playEpisode(folderId, episodeNumber) {
-            // In a real implementation, you would use the Google Drive API or direct links
-            // This is a simplified version for demonstration
+            currentDriveFolderId = folderId;
             const playerModal = document.getElementById('player-modal');
-            const videoPlayer = document.getElementById('video-player');
-            
-            // For demonstration, we'll use a placeholder video
-            // In production, you would construct the proper Google Drive embed URL
-            videoPlayer.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Placeholder
-            
             playerModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+        }
+        
+        // Function to open Google Drive content
+        function openDriveContent() {
+            if (currentDriveFolderId) {
+                window.open(`https://drive.google.com/drive/folders/${currentDriveFolderId}`, '_blank');
+            }
         }
         
         // Close modals when clicking outside
@@ -846,12 +879,6 @@
                 if (event.target === modals[i]) {
                     modals[i].style.display = 'none';
                     document.body.style.overflow = 'auto';
-                    
-                    // Stop video playback when closing player
-                    if (modals[i].id === 'player-modal') {
-                        const iframe = document.getElementById('video-player');
-                        iframe.src = '';
-                    }
                 }
             }
         }
