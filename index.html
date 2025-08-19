@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ටීවී කතාමාලා - CinemaLK</title>
+    <title>CinemaLK - Premium Sinhala Subtitled Content</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
     <style>
-        /* පොදු විලාසිතා */
         :root {
-            --primary-color: #e50914;
-            --secondary-color: #141414;
-            --text-color: #ffffff;
-            --text-secondary: #e5e5e5;
-            --bg-dark: #000000;
+            --primary: #e50914;
+            --secondary: #141414;
+            --accent: #00a8ff;
+            --dark: #000000;
+            --light: #ffffff;
+            --gray: #8c8c8c;
+            --dark-gray: #2c2c2c;
             --card-bg: #181818;
             --card-hover: #2c2c2c;
+            --section-padding: 60px 0;
         }
 
         * {
@@ -24,11 +27,11 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
             line-height: 1.6;
-            padding-top: 80px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -38,84 +41,159 @@
             padding: 0 15px;
         }
 
-        /* හෙඩර් විලාසිතා */
+        /* Header Styles */
         .main-header {
-            background-color: var(--secondary-color);
-            padding: 15px 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s;
         }
 
-        .main-header .container {
+        .main-header.scrolled {
+            background: var(--secondary);
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--primary);
             text-decoration: none;
-        }
-
-        .main-nav {
             display: flex;
-            gap: 20px;
+            align-items: center;
         }
 
-        .main-nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+        .logo i {
+            margin-right: 10px;
         }
 
-        .main-nav a:hover, .main-nav a.active {
-            color: var(--primary-color);
+        .nav-tabs {
+            display: flex;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 30px;
+            padding: 5px;
+        }
+
+        .nav-tab {
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background-color: var(--primary);
         }
 
         .search-box {
             display: flex;
             align-items: center;
-            margin-left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 5px 15px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus-within {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .search-box input {
-            padding: 8px 15px;
+            background: transparent;
             border: none;
-            border-radius: 4px 0 0 4px;
-            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--light);
+            padding: 8px;
+            width: 200px;
+            outline: none;
         }
 
         .search-box button {
-            padding: 8px 15px;
+            background: transparent;
             border: none;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 0 4px 4px 0;
+            color: var(--light);
             cursor: pointer;
         }
 
-        /* TV Series Section */
-        .series-section {
-            padding: 40px 0;
-        }
-
-        .section-header {
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            text-align: center;
+            padding-top: 80px;
         }
 
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--gray);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff0a16;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Content Sections */
         .section-title {
             font-size: 2rem;
+            margin-bottom: 30px;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
         .section-title::after {
@@ -124,60 +202,48 @@
             bottom: 0;
             left: 0;
             width: 60px;
-            height: 3px;
-            background-color: var(--primary-color);
+            height: 4px;
+            background-color: var(--primary);
         }
 
-        .view-all-btn {
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-            padding: 8px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
+        .content-section {
+            padding: var(--section-padding);
         }
 
-        .view-all-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .series-grid {
+        .movies-grid, .series-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
         }
 
-        .series-card {
+        .movie-card, .series-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
         }
 
-        .series-card:hover {
+        .movie-card:hover, .series-card:hover {
             transform: translateY(-10px);
-            background-color: var(--card-hover);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .series-poster {
+        .movie-poster, .series-poster {
             position: relative;
-            height: 380px;
+            height: 320px;
             overflow: hidden;
         }
 
-        .series-poster img {
+        .movie-poster img, .series-poster img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
+        .movie-card:hover .movie-poster img, 
         .series-card:hover .series-poster img {
             transform: scale(1.1);
         }
@@ -193,142 +259,169 @@
             align-items: flex-end;
             justify-content: center;
             opacity: 1;
-            transition: opacity 0.3s;
             padding: 20px;
         }
 
         .play-btn {
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.3s ease;
         }
 
+        .movie-card:hover .play-btn, 
         .series-card:hover .play-btn {
             opacity: 1;
             transform: translateY(0);
         }
 
         .play-btn i {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: white;
         }
 
-        .series-info {
-            padding: 20px;
+        .movie-info, .series-info {
+            padding: 15px;
         }
 
-        .series-info h3 {
+        .movie-info h3, .series-info h3 {
             margin-bottom: 10px;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .series-meta {
+        .movie-meta, .series-meta {
             display: flex;
             justify-content: space-between;
-            color: #aaa;
+            color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 10px;
         }
 
-        .series-meta .rating {
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rating i {
             color: gold;
         }
 
         .genre {
-            color: #aaa;
+            color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .watch-btn, .download-btn {
+        .action-btn {
             display: block;
-            flex: 1;
-            background-color: var(--primary-color);
+            width: 100%;
+            background-color: var(--primary);
             color: white;
             text-align: center;
             padding: 10px;
-            border-radius: 4px;
+            border-radius: 5px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             transition: background-color 0.3s;
             border: none;
             cursor: pointer;
-            font-size: 0.9rem;
         }
 
-        .download-btn {
-            background-color: #2c2c2c;
-            border: 1px solid #555;
-        }
-
-        .watch-btn:hover {
+        .action-btn:hover {
             background-color: #ff0a16;
         }
 
-        .download-btn:hover {
-            background-color: #3c3c3c;
+        /* About Section */
+        .about-section {
+            background-color: var(--secondary);
+            padding: var(--section-padding);
         }
 
-        /* Coming Soon Section */
-        .coming-soon {
-            margin-top: 60px;
-            padding: 40px 0;
-            border-top: 1px solid #333;
+        .mission-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1489599102910-59206b8ca314?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: var(--section-padding);
         }
 
-        .empty-message {
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
-            padding: 40px;
-            color: #888;
-            font-style: italic;
         }
 
-        .placeholder-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+        /* Footer */
+        .main-footer {
+            background-color: var(--secondary);
+            padding: 40px 0 20px;
+            text-align: center;
         }
 
-        .placeholder-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            height: 450px;
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--dark-gray);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #555;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 20px;
+            transition: background-color 0.3s;
         }
 
-        /* ෆූටර් */
-        .main-footer {
-            background-color: var(--secondary-color);
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 60px;
+        .social-links a:hover {
+            background-color: var(--primary);
         }
 
-        .main-footer p {
-            color: #777;
+        .copyright {
+            color: var(--gray);
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-gray);
         }
 
         /* WhatsApp float button */
@@ -348,8 +441,8 @@
             background-color: #25D366;
             color: white;
             border-radius: 50%;
-            font-size: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s;
         }
 
@@ -357,8 +450,8 @@
             transform: scale(1.1);
         }
 
-        /* Series Detail Modal */
-        .series-modal {
+        /* Modal Styles */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
@@ -373,10 +466,10 @@
         .modal-content {
             position: relative;
             width: 90%;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 40px auto;
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
@@ -433,10 +526,17 @@
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
-            color: #aaa;
+            color: var(--gray);
+            flex-wrap: wrap;
         }
 
         .modal-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .modal-rating i {
             color: gold;
         }
 
@@ -445,80 +545,70 @@
             line-height: 1.8;
         }
 
-        .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        .ratings-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
-        .episode-card {
+        .rating-item {
             background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .episode-card:hover {
-            transform: scale(1.05);
-        }
-
-        .episode-thumb {
-            height: 120px;
-            overflow: hidden;
-        }
-
-        .episode-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .episode-info {
             padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
         }
 
-        .episode-info h4 {
-            font-size: 1rem;
+        .rating-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
             margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .episode-meta {
-            color: #aaa;
-            font-size: 0.8rem;
+        .rating-source {
+            font-size: 0.9rem;
+            color: var(--gray);
         }
 
-        /* ප්‍රතිචාර ජනක නිර්මාණය */
-        @media (max-width: 768px) {
-            .main-header .container {
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-content {
                 flex-direction: column;
-                gap: 15px;
-            }
-            
-            .main-nav {
-                margin-top: 15px;
-            }
-            
-            .search-box {
-                margin: 15px 0 0;
-                width: 100%;
-            }
-            
-            .series-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
                 gap: 20px;
             }
             
-            .series-poster {
-                height: 320px;
+            .nav-tabs {
+                order: 3;
+                width: 100%;
+                justify-content: center;
             }
             
-            .modal-content {
-                width: 95%;
-                margin: 20px auto;
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .movies-grid, .series-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .movie-poster, .series-poster {
+                height: 280px;
             }
             
             .modal-header {
@@ -529,373 +619,560 @@
                 font-size: 2rem;
             }
             
-            .episodes-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .action-buttons {
+            .ratings-container {
                 flex-direction: column;
+                gap: 15px;
             }
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding-top: 120px;
+        @media (max-width: 576px) {
+            .nav-tab {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
             
-            .main-nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
+            .search-box input {
+                width: 150px;
             }
             
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .series-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .whatsapp-float {
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .whatsapp-float a {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .modal-title {
+            .hero-content h1 {
                 font-size: 1.8rem;
             }
             
-            .episodes-grid {
-                grid-template-columns: 1fr;
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .movies-grid, .series-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 15px;
+            }
+            
+            .movie-poster, .series-poster {
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- WhatsApp Float Button -->
     <div class="whatsapp-float">
         <a href="https://wa.me/94741039941" target="_blank">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
-    <header class="main-header">
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
         <div class="container">
-            <h1 class="logo">CinemaLK</h1>
-            <nav class="main-nav">
-                <a href="index.html">මුල් පිටුව</a>
-                <a href="movies.html">චිත්‍රපට</a>
-                <a href="series.html" class="active">ටීවී කතාමාලා</a>
-            </nav>
-            <div class="search-box">
-                <input type="text" placeholder="ටීවී කතාමාලා සොයන්න...">
-                <button><i class="fas fa-search"></i></button>
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-play-circle"></i> CinemaLK
+                </a>
+                
+                <div class="nav-tabs">
+                    <div class="nav-tab active" data-tab="home">මුල් පිටුව</div>
+                    <div class="nav-tab" data-tab="movies">චිත්‍රපට</div>
+                    <div class="nav-tab" data-tab="series">ටීවී කතාමාලා</div>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="සොයන්න...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
-        <section class="series-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">ප්‍රධාන ටීවී කතාමාලා</h2>
-                    <button class="view-all-btn">සියල්ල බලන්න</button>
-                </div>
-                
-                <div class="series-grid">
-                    <!-- Doctor Strengers TV Series -->
-                    <div class="series-card">
-                        <div class="series-poster">
-                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Doctor Strengers">
-                            <div class="play-overlay">
-                                <div class="play-btn" onclick="openSeriesModal('doctor-strengers')">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="series-info">
-                            <h3>Doctor Strengers</h3>
-                            <div class="series-meta">
-                                <span class="year">2023</span>
-                                <span class="rating"><i class="fas fa-star"></i> 8.5/10</span>
-                            </div>
-                            <p class="genre">Drama, Medical</p>
-                            <div class="action-buttons">
-                                <button class="watch-btn" onclick="openSeriesModal('doctor-strengers')">දැන් බලන්න</button>
-                                <a href="https://drive.google.com/drive/folders/1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u" target="_blank" class="download-btn">Download/View</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- The 8 Show TV Series -->
-                    <div class="series-card">
-                        <div class="series-poster">
-                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="The 8 Show">
-                            <div class="play-overlay">
-                                <div class="play-btn" onclick="openSeriesModal('the-8-show')">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="series-info">
-                            <h3>The 8 Show</h3>
-                            <div class="series-meta">
-                                <span class="year">2024</span>
-                                <span class="rating"><i class="fas fa-star"></i> 8.0/10</span>
-                            </div>
-                            <p class="genre">Thriller, Drama</p>
-                            <div class="action-buttons">
-                                <button class="watch-btn" onclick="openSeriesModal('the-8-show')">දැන් බලන්න</button>
-                                <a href="https://drive.google.com/drive/folders/1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6" target="_blank" class="download-btn">Download/View</a>
-                            </div>
+        <!-- Home Tab Content -->
+        <div id="homeTab" class="tab-content active">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>විශිෂ්ටතම චිත්‍රපට සහ ටීවී කතාමාලා</h1>
+                        <p>සිංහල උපසිරැසි සහ හඩකැවූ අනුවාද සමඟ ඉහළ ගුණාත්මකභාවයේ එන්ටර්ටේන්මන්ට්</p>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary">දැන් බලන්න</a>
+                            <a href="#" class="btn btn-secondary">තවත් බලන්න</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="coming-soon">
-            <div class="container">
-                <h2 class="section-title">ඉක්මනින් එන ටීවී කතාමාලා</h2>
-                <div class="placeholder-cards">
-                    <div class="placeholder-card">
-                        <div>
-                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
-                        </div>
+            <!-- Mission Section -->
+            <section class="mission-section">
+                <div class="container">
+                    <div class="mission-content">
+                        <h2 class="section-title">අපගේ අරමුණ</h2>
+                        <p>අපගේ අරමුණ වන්නේ විදේශීය චිත්‍රපට සහ ටීවී කතාමාලා සිංහල උපසිරැසි හෝ හඩකැවූ අනුවාද සමඟ ලබා දීමෙන් භාෂා බාධාවන් ඉක්මවා යාමට අවස්ථාව සලසා දීමයි. අපි ඔබට ලොව පුරා ඇති විශිෂ්ටතම එන්ටර්ටේන්මන්ට් අන්තර්ගතය භාෂාව බාධකයක් නොවන පරිදි ලබා දෙන්නෙමු.</p>
                     </div>
-                    <div class="placeholder-card">
-                        <div>
-                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
+                </div>
+            </section>
+
+            <!-- Featured Movies -->
+            <section class="content-section">
+                <div class="container">
+                    <h2 class="section-title">විශේෂ චිත්‍රපට</h2>
+                    <div class="movies-grid">
+                        <!-- The Roundup: Punishment -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://drive.google.com/thumbnail?id=10XLmKcBY2kVFRB40FqnvibGkVwTmihrs&sz=w1000" alt="The Roundup: Punishment">
+                                <div class="play-overlay">
+                                    <div class="play-btn" onclick="openModal('roundup-punishment')">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>The Roundup: Punishment</h3>
+                                <div class="movie-meta">
+                                    <span class="year">2025</span>
+                                    <span class="rating"><i class="fas fa-star"></i> 7.5/10</span>
+                                </div>
+                                <p class="genre">Action, Crime</p>
+                                <button class="action-btn" onclick="openModal('roundup-punishment')">දැන් බලන්න</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="placeholder-card">
-                        <div>
-                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
+                        
+                        <!-- The Gangster, The Cop, The Devil -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://drive.google.com/thumbnail?id=10cPiVOW9hbcL5VJLnEPTksKHmYJL8_my&sz=w1000" alt="The Gangster, The Cop, The Devil">
+                                <div class="play-overlay">
+                                    <div class="play-btn" onclick="openModal('gangster-cop-devil')">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>The Gangster, The Cop, The Devil</h3>
+                                <div class="movie-meta">
+                                    <span class="year">2025</span>
+                                    <span class="rating"><i class="fas fa-star"></i> 7.6/10</span>
+                                </div>
+                                <p class="genre">Action, Crime, Thriller</p>
+                                <button class="action-btn" onclick="openModal('gangster-cop-devil')">දැන් බලන්න</button>
+                            </div>
+                        </div>
+                        
+                        <!-- The Battle at Lake Changjin -->
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://drive.google.com/thumbnail?id=10XLmKcBY2kVFRB40FqnvibGkVwTmihrs&sz=w1000" alt="The Battle at Lake Changjin">
+                                <div class="play-overlay">
+                                    <div class="play-btn" onclick="openModal('battle-lake-changjin')">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>The Battle at Lake Changjin</h3>
+                                <div class="movie-meta">
+                                    <span class="year">2025</span>
+                                    <span class="rating"><i class="fas fa-star"></i> 6.0/10</span>
+                                </div>
+                                <p class="genre">War, Action, Drama</p>
+                                <button class="action-btn" onclick="openModal('battle-lake-changjin')">දැන් බලන්න</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- About Section -->
+            <section class="about-section">
+                <div class="container">
+                    <h2 class="section-title">අප ගැන</h2>
+                    <p>CinemaLK යනු 2025 වර්ෂයේදී ආරම්භ කරන ලද විදේශීය චිත්‍රපට සහ ටීවී කතාමාලා සිංහල භාෂාවෙන් ලබා දෙන ප්‍රමුඛතම සේවාවකි. අපගේ කණ්ඩායම උසස් ගුණාත්මකභාවයේ උපසිරැසි සහ හඩකැවීම් සපයා ගන්නා අතර ඔබට හොඳම රසික අත්දැකීම ලබා දීමට කැපවී සිටින්නෙමු.</p>
+                    <p>අපි සතියකට නව අන්තර්ගතයන් එකතු කරන අතර ඔබගේ ප්‍රියතම චිත්‍රපට සහ කතාමාලා නිර්බාධව බැලීමට අවස්ථාව ලබා දෙන්නෙමු.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Movies Tab Content -->
+        <div id="moviesTab" class="tab-content">
+            <section class="content-section" style="padding-top: 100px;">
+                <div class="container">
+                    <h2 class="section-title">සියලුම චිත්‍රපට</h2>
+                    <div class="movies-grid">
+                        <!-- Movies will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Series Tab Content -->
+        <div id="seriesTab" class="tab-content">
+            <section class="content-section" style="padding-top: 100px;">
+                <div class="container">
+                    <h2 class="section-title">සියලුම ටීවී කතාමාලා</h2>
+                    <div class="series-grid">
+                        <!-- Series will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- Doctor Strengers Modal -->
-    <div class="series-modal" id="doctor-strengers-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('doctor-strengers-modal')">&times;</span>
-            <div class="modal-header">
-                <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Doctor Strengers">
-                <div class="modal-header-overlay"></div>
-            </div>
-            <div class="modal-body">
-                <h2 class="modal-title">Doctor Strengers</h2>
-                <div class="modal-meta">
-                    <span class="modal-year">2023</span>
-                    <span class="modal-rating"><i class="fas fa-star"></i> 8.5/10</span>
-                    <span class="modal-genre">Drama, Medical</span>
-                </div>
-                <p class="modal-description">
-                    Doctor Strengers is a compelling medical drama that follows the life of Dr. Alex Strengers, a brilliant but unconventional surgeon who challenges the established medical practices at St. Jude's Hospital. With his innovative techniques and unorthodox methods, he saves countless lives while battling his own personal demons and hospital politics.
-                </p>
-                <div class="action-buttons" style="margin-bottom: 30px;">
-                    <button class="watch-btn" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '1')">කථාංග 1 බලන්න</button>
-                    <a href="https://drive.google.com/drive/folders/1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u" target="_blank" class="download-btn">සියලු කථාංග Download/View</a>
-                </div>
-                <h3>කථාංග</h3>
-                <div class="episodes-grid">
-                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '1')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 1">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 1: නව ආරම්භය</h4>
-                            <div class="episode-meta">දිග: 45m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '2')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 2">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 2: ප්‍රතික්ෂේපය</h4>
-                            <div class="episode-meta">දිග: 42m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '3')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 3">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 3: අභියෝග</h4>
-                            <div class="episode-meta">දිග: 47m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '4')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 4">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 4: සාක්ෂිය</h4>
-                            <div class="episode-meta">දිග: 44m</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- The 8 Show Modal -->
-    <div class="series-modal" id="the-8-show-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('the-8-show-modal')">&times;</span>
-            <div class="modal-header">
-                <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="The 8 Show">
-                <div class="modal-header-overlay"></div>
-            </div>
-            <div class="modal-body">
-                <h2 class="modal-title">The 8 Show</h2>
-                <div class="modal-meta">
-                    <span class="modal-year">2024</span>
-                    <span class="modal-rating"><i class="fas fa-star"></i> 8.0/10</span>
-                    <span class="modal-genre">Thriller, Drama</span>
-                </div>
-                <p class="modal-description">
-                    The 8 Show is a psychological thriller that follows eight strangers who are invited to participate in a mysterious reality show with a huge cash prize. As the game progresses, the participants realize that the show has sinister intentions, and they must navigate complex alliances and moral dilemmas to survive.
-                </p>
-                <div class="action-buttons" style="margin-bottom: 30px;">
-                    <button class="watch-btn" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '1')">කථාංග 1 බලන්න</button>
-                    <a href="https://drive.google.com/drive/folders/1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6" target="_blank" class="download-btn">සියලු කථාංග Download/View</a>
-                </div>
-                <h3>කථාංග</h3>
-                <div class="episodes-grid">
-                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '1')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 1">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 1: ආරාධනාව</h4>
-                            <div class="episode-meta">දිග: 50m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '2')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 2">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 2: නීති</h4>
-                            <div class="episode-meta">දිග: 48m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '3')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 3">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 3: සම්බන්ධතා</h4>
-                            <div class="episode-meta">දිග: 52m</div>
-                        </div>
-                    </div>
-                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '4')">
-                        <div class="episode-thumb">
-                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 4">
-                        </div>
-                        <div class="episode-info">
-                            <h4>කථාංග 4: රහස්</h4>
-                            <div class="episode-meta">දිග: 49m</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Player Modal -->
-    <div class="series-modal" id="player-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('player-modal')">&times;</span>
-            <div style="padding: 20px; text-align: center;">
-                <h2>Google Drive Content</h2>
-                <p style="margin-bottom: 20px;">මෙම අන්තර්ගතය බැලීමට ඔබව Google Drive වෙත හරවා යවනු ලැබේ. එහිදී ඔබට වීඩියෝව බලාගත හැකිය.</p>
-                <button class="watch-btn" onclick="openDriveContent()" style="margin: 0 auto;">Google Drive විවෘත කරන්න</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2023 CinemaLK. සියලුම හිමිකම් ඇවිරිණි.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CinemaLK</h3>
+                    <p>විශිෂ්ටතම චිත්‍රපට සහ ටීවී කතාමාලා සිංහල භාෂාවෙන්</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>සබැඳි</h3>
+                    <a href="#">මුල් පිටුව</a>
+                    <a href="#">චිත්‍රපට</a>
+                    <a href="#">ටීවී කතාමාලා</a>
+                    <a href="#">අප ගැන</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>අමතන්න</h3>
+                    <p>දුරකථන: +94 7410 39941</p>
+                    <p>ඊමේල්: info@cameralk.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 CinemaLK. සියලුම හිමිකම් ඇවිරිණි.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Modals -->
+    <!-- The Roundup: Punishment Modal -->
+    <div class="modal" id="roundup-punishment-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <img src="https://drive.google.com/thumbnail?id=10XLmKcBY2kVFRB40FqnvibGkVwTmihrs&sz=w1000" alt="The Roundup: Punishment">
+                <div class="modal-header-overlay"></div>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title">The Roundup: Punishment</h2>
+                <div class="modal-meta">
+                    <span class="modal-year">2025</span>
+                    <span class="modal-rating"><i class="fas fa-star"></i> 7.5/10</span>
+                    <span class="modal-genre">Action, Crime</span>
+                    <span class="modal-duration"><i class="fas fa-clock"></i> 109 min</span>
+                </div>
+                
+                <div class="ratings-container">
+                    <div class="rating-item">
+                        <div class="rating-value">7.5/10</div>
+                        <div class="rating-source">IMDb</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-value">85%</div>
+                        <div class="rating-source">Rotten Tomatoes</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-value">4.5/5</div>
+                        <div class="rating-source">CinemaLK</div>
+                    </div>
+                </div>
+                
+                <p class="modal-description">
+                    The Roundup: Punishment is a 2025 South Korean action crime film directed by Lee Sang-yong and starring Don Lee. It is the fourth installment in The Roundup series. The film follows Ma Seok-do and his team as they take on a ruthless illegal online gambling organization.
+                </p>
+                
+                <button class="action-btn" onclick="playContent('1QzJhhuRsWO_YxKlY5C0eBLAX9szLmREo')">දැන් බලන්න</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
-        // Store the current drive folder ID
-        let currentDriveFolderId = '';
-        
-        // Function to open series modal
-        function openSeriesModal(seriesId) {
-            document.getElementById(seriesId + '-modal').style.display = 'block';
+        // Data for movies and series
+        const moviesData = [
+            {
+                id: "roundup-punishment",
+                title: "The Roundup: Punishment",
+                year: "2025",
+                rating: "7.5",
+                genre: "Action, Crime",
+                poster: "https://drive.google.com/thumbnail?id=10XLmKcBY2kVFRB40FqnvibGkVwTmihrs&sz=w1000",
+                driveId: "1QzJhhuRsWO_YxKlY5C0eBLAX9szLmREo",
+                description: "The Roundup: Punishment is a 2025 South Korean action crime film directed by Lee Sang-yong and starring Don Lee. It is the fourth installment in The Roundup series.",
+                imdb: "7.5",
+                rt: "85"
+            },
+            {
+                id: "gangster-cop-devil",
+                title: "The Gangster, The Cop, The Devil",
+                year: "2025",
+                rating: "7.6",
+                genre: "Action, Crime, Thriller",
+                poster: "https://drive.google.com/thumbnail?id=10cPiVOW9hbcL5VJLnEPTksKHmYJL8_my&sz=w1000",
+                driveId: "1FqxhZMgUGeeyidUhXMZ382_gBrgcrE2A",
+                description: "The Gangster, The Cop, The Devil is a 2025 South Korean action thriller film directed by Lee Won-tae and starring Don Lee.",
+                imdb: "7.6",
+                rt: "82"
+            },
+            {
+                id: "battle-lake-changjin",
+                title: "The Battle at Lake Changjin",
+                year: "2025",
+                rating: "6.0",
+                genre: "War, Action, Drama",
+                poster: "https://drive.google.com/thumbnail?id=10XLmKcBY2kVFRB40FqnvibGkVwTmihrs&sz=w1000",
+                driveId: "1-6-byCxCoVCgnOzOn2eb_dl93xG2BW23",
+                description: "The Battle at Lake Changjin is a 2025 Chinese war film directed by Chen Kaige, Tsui Hark and Dante Lam.",
+                imdb: "6.0",
+                rt: "75"
+            }
+        ];
+
+        const seriesData = [
+            {
+                id: "faith",
+                title: "Faith",
+                year: "2025",
+                rating: "8.2",
+                genre: "Historical, Fantasy, Romance",
+                poster: "https://drive.google.com/thumbnail?id=11YJaU6dr-k-vtAh6qefuIdG6cf1VcXDW&sz=w1000",
+                driveId: "1bNu1Bd01PcXtGO6DAbjh5y85yWCtrLcj",
+                description: "Faith is a 2025 South Korean historical fantasy drama series starring Lee Min-ho and Kim Hee-sun.",
+                imdb: "8.2",
+                rt: "88"
+            },
+            {
+                id: "hwarang",
+                title: "Hwarang",
+                year: "2025",
+                rating: "7.8",
+                genre: "Historical, Romance, Drama",
+                poster: "https://drive.google.com/thumbnail?id=11YoXejxVsMbpp4M8J9uGzSpwPCay4WlC&sz=w1000",
+                driveId: "1UNnkWWNCVPc8hN-NnrP2Sf7ZGfkeKZJZ",
+                description: "Hwarang is a 2025 South Korean historical romance drama series starring Park Seo-joon and Go Ara.",
+                imdb: "7.8",
+                rt: "85"
+            },
+            {
+                id: "urumakkara",
+                title: "උරුමක්කාරයෝ",
+                year: "2025",
+                rating: "8.5",
+                genre: "Drama, Family",
+                poster: "https://drive.google.com/thumbnail?id=11N1bNl86wRwniNzgHH_Lnbek92bh8cTV&sz=w1000",
+                driveId: "1cj-8kXAh0cu35hFCCp8ARS2NlQbur_T0",
+                description: "උරුමක්කාරයෝ is a 2025 Sri Lankan family drama series.",
+                imdb: "8.5",
+                rt: "90"
+            },
+            {
+                id: "legend-blue-sea",
+                title: "Legend of the Blue Sea",
+                year: "2025",
+                rating: "8.4",
+                genre: "Fantasy, Romance, Comedy",
+                poster: "https://drive.google.com/thumbnail?id=11N6zHRIAO_NoP8KJnJqKzo-tWgQPaFP_&sz=w1000",
+                driveId: "1NTqMOgmYs0JJHkItXdlSebtddDs0lPTC",
+                description: "Legend of the Blue Sea is a 2025 South Korean fantasy romance drama series starring Jun Ji-hyun and Lee Min-ho.",
+                imdb: "8.4",
+                rt: "87"
+            },
+            {
+                id: "legend-seeker",
+                title: "Legend of the Seeker",
+                year: "2025",
+                rating: "7.7",
+                genre: "Fantasy, Adventure",
+                poster: "https://drive.google.com/thumbnail?id=11RR-I_OXUNabTGInCwwbhxO3Ffpkndhd&sz=w1000",
+                driveId: "1CrO1b8MqwGf7WYi2zRsZlMpWYtK9LRcP",
+                description: "Legend of the Seeker is a 2025 American fantasy adventure series based on Terry Goodkind's Sword of Truth novels.",
+                imdb: "7.7",
+                rt: "83"
+            },
+            {
+                id: "himanthara",
+                title: "හිමාන්තරා",
+                year: "2025",
+                rating: "8.7",
+                genre: "Drama, Romance",
+                poster: "https://drive.google.com/thumbnail?id=11XAZlEa3RszGukOC14XUuORPynZC-EM7&sz=w1000",
+                driveId: "10FHPoTxGR_4EXSlkvIoUxoY-WmHI4Auw",
+                description: "හිමාන්තරා is a 2025 Sri Lankan romantic drama series.",
+                imdb: "8.7",
+                rt: "92"
+            },
+            {
+                id: "mouse",
+                title: "Mouse",
+                year: "2025",
+                rating: "8.6",
+                genre: "Thriller, Mystery, Crime",
+                poster: "https://drive.google.com/thumbnail?id=116M2KfHYYvEuPzCgkUaIs2VPtYBuR1RS&sz=w1000",
+                driveId: "1hN1PAa-535lo3Ozauzxq63Qs-496HvdB",
+                description: "Mouse is a 2025 South Korean thriller mystery drama series starring Lee Seung-gi and Lee Hee-joon.",
+                imdb: "8.6",
+                rt: "91"
+            },
+            {
+                id: "judge-from-hell",
+                title: "Judge from Hell",
+                year: "2025",
+                rating: "8.3",
+                genre: "Legal, Drama, Thriller",
+                poster: "https://drive.google.com/thumbnail?id=11F1RNeAY_AHs-VKj-i88iJTXmDdP1lZI&sz=w1000",
+                driveId: "14Vqq3ewpkOyphcJwrW2D4L5zasudojLY",
+                description: "Judge from Hell is a 2025 South Korean legal drama thriller series.",
+                imdb: "8.3",
+                rt: "86"
+            }
+        ];
+
+        // DOM elements
+        const mainHeader = document.getElementById('mainHeader');
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const moviesGrid = document.querySelector('.movies-grid');
+        const seriesGrid = document.querySelector('.series-grid');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle header scroll
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    mainHeader.classList.add('scrolled');
+                } else {
+                    mainHeader.classList.remove('scrolled');
+                }
+            });
+
+            // Load movies and series
+            loadMovies();
+            loadSeries();
+        });
+
+        // Tab switching functionality
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab
+                navTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}Tab`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Load movies into grid
+        function loadMovies() {
+            moviesGrid.innerHTML = '';
+            
+            moviesData.forEach(movie => {
+                const movieCard = `
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="${movie.poster}" alt="${movie.title}">
+                            <div class="play-overlay">
+                                <div class="play-btn" onclick="openModal('${movie.id}')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-info">
+                            <h3>${movie.title}</h3>
+                            <div class="movie-meta">
+                                <span class="year">${movie.year}</span>
+                                <span class="rating"><i class="fas fa-star"></i> ${movie.rating}/10</span>
+                            </div>
+                            <p class="genre">${movie.genre}</p>
+                            <button class="action-btn" onclick="openModal('${movie.id}')">දැන් බලන්න</button>
+                        </div>
+                    </div>
+                `;
+                
+                moviesGrid.innerHTML += movieCard;
+            });
+        }
+
+        // Load series into grid
+        function loadSeries() {
+            seriesGrid.innerHTML = '';
+            
+            seriesData.forEach(series => {
+                const seriesCard = `
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <img src="${series.poster}" alt="${series.title}">
+                            <div class="play-overlay">
+                                <div class="play-btn" onclick="openModal('${series.id}')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <h3>${series.title}</h3>
+                            <div class="series-meta">
+                                <span class="year">${series.year}</span>
+                                <span class="rating"><i class="fas fa-star"></i> ${series.rating}/10</span>
+                            </div>
+                            <p class="genre">${series.genre}</p>
+                            <button class="action-btn" onclick="openModal('${series.id}')">දැන් බලන්න</button>
+                        </div>
+                    </div>
+                `;
+                
+                seriesGrid.innerHTML += seriesCard;
+            });
+        }
+
+        // Open modal
+        function openModal(contentId) {
+            // In a real implementation, you would show the appropriate modal
+            // For this example, we'll show a sample modal
+            document.getElementById('roundup-punishment-modal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-        
-        // Function to close modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+
+        // Close modal
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
             document.body.style.overflow = 'auto';
         }
-        
-        // Function to play episode
-        function playEpisode(folderId, episodeNumber) {
-            currentDriveFolderId = folderId;
-            const playerModal = document.getElementById('player-modal');
-            playerModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+
+        // Play content
+        function playContent(driveId) {
+            // In a real implementation, this would open the content in a player
+            // For this example, we'll open the Google Drive link
+            window.open(`https://drive.google.com/file/d/${driveId}/view`, '_blank');
         }
-        
-        // Function to open Google Drive content
-        function openDriveContent() {
-            if (currentDriveFolderId) {
-                window.open(`https://drive.google.com/drive/folders/${currentDriveFolderId}`, '_blank');
-            }
-        }
-        
+
         // Close modals when clicking outside
-        window.onclick = function(event) {
-            const modals = document.getElementsByClassName('series-modal');
-            for (let i = 0; i < modals.length; i++) {
-                if (event.target === modals[i]) {
-                    modals[i].style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
             }
-        }
-        
-        // Search functionality
-        document.querySelector('.search-box button').addEventListener('click', function() {
-            const searchTerm = document.querySelector('.search-box input').value;
-            if (searchTerm.trim() !== '') {
-                alert('සෙවුම: ' + searchTerm);
-                // In a real implementation, you would filter the series based on the search term
-            }
-        });
-        
-        // View all button functionality
-        document.querySelector('.view-all-btn').addEventListener('click', function() {
-            alert('සියලුම ටීවී කතාමාලා පෙන්වනු ලැබේ');
-            // In a real implementation, you would show all available series
         });
     </script>
 </body>
