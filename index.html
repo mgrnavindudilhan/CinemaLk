@@ -3,9 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CinemaLK - සිංහල උපසිරැසි සමඟ චිත්‍රපට</title>
+    <title>ටීවී කතාමාලා - CinemaLK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* පොදු විලාසිතා */
+        :root {
+            --primary-color: #e50914;
+            --secondary-color: #141414;
+            --text-color: #ffffff;
+            --text-secondary: #e5e5e5;
+            --bg-dark: #000000;
+            --card-bg: #181818;
+            --card-hover: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* හෙඩර් විලාසිතා */
+        .main-header {
+            background-color: var(--secondary-color);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box button {
+            padding: 8px 15px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* TV Series Section */
+        .series-section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .view-all-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .view-all-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .series-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .series-card:hover {
+            transform: translateY(-10px);
+            background-color: var(--card-hover);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .series-poster {
+            position: relative;
+            height: 380px;
+            overflow: hidden;
+        }
+
+        .series-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .series-card:hover .series-poster img {
+            transform: scale(1.1);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.3s;
+            padding: 20px;
+        }
+
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .series-card:hover .play-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .play-btn i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .series-info {
+            padding: 20px;
+        }
+
+        .series-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .series-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .series-meta .rating {
+            color: gold;
+        }
+
+        .genre {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .watch-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .watch-btn:hover {
+            background-color: #ff0a16;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid #333;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .placeholder-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .placeholder-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ෆූටර් */
+        .main-footer {
+            background-color: var(--secondary-color);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .main-footer p {
+            color: #777;
+        }
+
+        /* WhatsApp float button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .whatsapp-float a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float a:hover {
+            transform: scale(1.1);
+        }
+
+        /* Series Detail Modal */
+        .series-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-header {
+            position: relative;
+            height: 400px;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-header-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--card-bg) 0%, transparent 100%);
+        }
+
+        .modal-body {
+            padding: 30px;
+            margin-top: -100px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        .modal-rating {
+            color: gold;
+        }
+
+        .modal-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .episode-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .episode-card:hover {
+            transform: scale(1.05);
+        }
+
+        .episode-thumb {
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .episode-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .episode-info {
+            padding: 15px;
+        }
+
+        .episode-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .episode-meta {
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        /* ප්‍රතිචාර ජනක නිර්මාණය */
+        @media (max-width: 768px) {
+            .main-header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .main-nav {
+                margin-top: 15px;
+            }
+            
+            .search-box {
+                margin: 15px 0 0;
+                width: 100%;
+            }
+            
+            .series-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+            
+            .series-poster {
+                height: 320px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .modal-header {
+                height: 300px;
+            }
+            
+            .modal-title {
+                font-size: 2rem;
+            }
+            
+            .episodes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .main-nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .series-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .whatsapp-float a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="whatsapp-float">
@@ -18,28 +574,230 @@
         <div class="container">
             <h1 class="logo">CinemaLK</h1>
             <nav class="main-nav">
-                <a href="index.html" class="active">මුල් පිටුව</a>
+                <a href="index.html">මුල් පිටුව</a>
                 <a href="movies.html">චිත්‍රපට</a>
-                <a href="series.html">ටීවී කතාමාලා</a>
+                <a href="series.html" class="active">ටීවී කතාමාලා</a>
             </nav>
+            <div class="search-box">
+                <input type="text" placeholder="ටීවී කතාමාලා සොයන්න...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
         </div>
     </header>
 
-    <main class="no-scroll">
-        <section class="hero-section">
-            <div class="hero-content">
-                <h2>සාදරයෙන් පිළිගනිමු!</h2>
-                <p>සිංහල උපසිරැසි සහිත විශිෂ්ට චිත්‍රපට හා ටීවී කතාමාලා භුක්ති විඳින්න</p>
+    <main>
+        <section class="series-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">ප්‍රධාන ටීවී කතාමාලා</h2>
+                    <button class="view-all-btn">සියල්ල බලන්න</button>
+                </div>
+                
+                <div class="series-grid">
+                    <!-- Doctor Strengers TV Series -->
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Doctor Strengers">
+                            <div class="play-overlay">
+                                <div class="play-btn" onclick="openSeriesModal('doctor-strengers')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <h3>Doctor Strengers</h3>
+                            <div class="series-meta">
+                                <span class="year">2023</span>
+                                <span class="rating"><i class="fas fa-star"></i> 8.5/10</span>
+                            </div>
+                            <p class="genre">Drama, Medical</p>
+                            <a href="#" class="watch-btn" onclick="openSeriesModal('doctor-strengers'); return false;">දැන් බලන්න</a>
+                        </div>
+                    </div>
+                    
+                    <!-- The 8 Show TV Series -->
+                    <div class="series-card">
+                        <div class="series-poster">
+                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="The 8 Show">
+                            <div class="play-overlay">
+                                <div class="play-btn" onclick="openSeriesModal('the-8-show')">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="series-info">
+                            <h3>The 8 Show</h3>
+                            <div class="series-meta">
+                                <span class="year">2024</span>
+                                <span class="rating"><i class="fas fa-star"></i> 8.0/10</span>
+                            </div>
+                            <p class="genre">Thriller, Drama</p>
+                            <a href="#" class="watch-btn" onclick="openSeriesModal('the-8-show'); return false;">දැන් බලන්න</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="about-section">
+        <section class="coming-soon">
             <div class="container">
-                <h2>අප ගැන</h2>
-                <p>CinemaLK යනු සිංහල භාෂාවෙන් උපසිරැසි සහිත විදේශීය චිත්‍රපට හා ටීවී කතාමාලා සපයන වෙබ් අඩවියකි. අපගේ අරමුණ වන්නේ භාෂා බාධා නොමැතිව උසස් ගුණාත්මක එන්ටර්ටේන්මන්ට් ඔබට ගෙන ඒමයි.</p>
+                <h2 class="section-title">ඉක්මනින් එන ටීවී කතාමාලා</h2>
+                <div class="placeholder-cards">
+                    <div class="placeholder-card">
+                        <div>
+                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
+                        </div>
+                    </div>
+                    <div class="placeholder-card">
+                        <div>
+                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
+                        </div>
+                    </div>
+                    <div class="placeholder-card">
+                        <div>
+                            <i class="fas fa-plus-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>අලුත් කතාමාලා<br>ඉක්මනින් එනු ඇත</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- Doctor Strengers Modal -->
+    <div class="series-modal" id="doctor-strengers-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('doctor-strengers-modal')">&times;</span>
+            <div class="modal-header">
+                <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Doctor Strengers">
+                <div class="modal-header-overlay"></div>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title">Doctor Strengers</h2>
+                <div class="modal-meta">
+                    <span class="modal-year">2023</span>
+                    <span class="modal-rating"><i class="fas fa-star"></i> 8.5/10</span>
+                    <span class="modal-genre">Drama, Medical</span>
+                </div>
+                <p class="modal-description">
+                    Doctor Strengers is a compelling medical drama that follows the life of Dr. Alex Strengers, a brilliant but unconventional surgeon who challenges the established medical practices at St. Jude's Hospital. With his innovative techniques and unorthodox methods, he saves countless lives while battling his own personal demons and hospital politics.
+                </p>
+                <h3>කථාංග</h3>
+                <div class="episodes-grid">
+                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '1')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 1">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 1: නව ආරම්භය</h4>
+                            <div class="episode-meta">දිග: 45m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '2')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 2">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 2: ප්‍රතික්ෂේපය</h4>
+                            <div class="episode-meta">දිග: 42m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '3')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 3">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 3: අභියෝග</h4>
+                            <div class="episode-meta">දිග: 47m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1Uol26BJ8-pdigjQB7KtBfR6BYZYO4W4u', '4')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10PjZ3DoB0EEyUI0leiCNZdkvlECjSW4z&sz=w1000" alt="Episode 4">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 4: සාක්ෂිය</h4>
+                            <div class="episode-meta">දිග: 44m</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The 8 Show Modal -->
+    <div class="series-modal" id="the-8-show-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('the-8-show-modal')">&times;</span>
+            <div class="modal-header">
+                <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="The 8 Show">
+                <div class="modal-header-overlay"></div>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title">The 8 Show</h2>
+                <div class="modal-meta">
+                    <span class="modal-year">2024</span>
+                    <span class="modal-rating"><i class="fas fa-star"></i> 8.0/10</span>
+                    <span class="modal-genre">Thriller, Drama</span>
+                </div>
+                <p class="modal-description">
+                    The 8 Show is a psychological thriller that follows eight strangers who are invited to participate in a mysterious reality show with a huge cash prize. As the game progresses, the participants realize that the show has sinister intentions, and they must navigate complex alliances and moral dilemmas to survive.
+                </p>
+                <h3>කථාංග</h3>
+                <div class="episodes-grid">
+                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '1')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 1">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 1: ආරාධනාව</h4>
+                            <div class="episode-meta">දිග: 50m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '2')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 2">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 2: නීති</h4>
+                            <div class="episode-meta">දිග: 48m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '3')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 3">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 3: සම්බන්ධතා</h4>
+                            <div class="episode-meta">දිග: 52m</div>
+                        </div>
+                    </div>
+                    <div class="episode-card" onclick="playEpisode('1df7tRjxLgDkJqJdHxm8-ZvRUOWMDGeZ6', '4')">
+                        <div class="episode-thumb">
+                            <img src="https://drive.google.com/thumbnail?id=10QXlmCHy0Nn2jvLt0TXwWbvX51QmXr4D&sz=w1000" alt="Episode 4">
+                        </div>
+                        <div class="episode-info">
+                            <h4>කථාංග 4: රහස්</h4>
+                            <div class="episode-meta">දිග: 49m</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="series-modal" id="player-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('player-modal')">&times;</span>
+            <div style="padding: 56.25% 0 0 0; position: relative;">
+                <iframe id="video-player" src="" frameborder="0" allowfullscreen 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            </div>
+        </div>
+    </div>
 
     <footer class="main-footer">
         <div class="container">
@@ -47,6 +805,71 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        // Function to open series modal
+        function openSeriesModal(seriesId) {
+            document.getElementById(seriesId + '-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Function to close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Stop video playback when closing player
+            if (modalId === 'player-modal') {
+                const iframe = document.getElementById('video-player');
+                iframe.src = '';
+            }
+        }
+        
+        // Function to play episode
+        function playEpisode(folderId, episodeNumber) {
+            // In a real implementation, you would use the Google Drive API or direct links
+            // This is a simplified version for demonstration
+            const playerModal = document.getElementById('player-modal');
+            const videoPlayer = document.getElementById('video-player');
+            
+            // For demonstration, we'll use a placeholder video
+            // In production, you would construct the proper Google Drive embed URL
+            videoPlayer.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Placeholder
+            
+            playerModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('series-modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target === modals[i]) {
+                    modals[i].style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    
+                    // Stop video playback when closing player
+                    if (modals[i].id === 'player-modal') {
+                        const iframe = document.getElementById('video-player');
+                        iframe.src = '';
+                    }
+                }
+            }
+        }
+        
+        // Search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value;
+            if (searchTerm.trim() !== '') {
+                alert('සෙවුම: ' + searchTerm);
+                // In a real implementation, you would filter the series based on the search term
+            }
+        });
+        
+        // View all button functionality
+        document.querySelector('.view-all-btn').addEventListener('click', function() {
+            alert('සියලුම ටීවී කතාමාලා පෙන්වනු ලැබේ');
+            // In a real implementation, you would show all available series
+        });
+    </script>
 </body>
-                </html>
+    </html>
